@@ -1,0 +1,14 @@
+{
+  "name": "maze-api",
+  "version": "1.0.0",
+  "description": "An API that generates and serves mazes",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
