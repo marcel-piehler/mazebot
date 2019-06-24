@@ -1,0 +1,13 @@
+body {
+  background: #181820;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  max-height: 100vh;
+}
+
+#maze-canvas {
+  max-height: 100vmin;
+  max-width: 100vmin;
+  border: 5px solid #faa;
+}
