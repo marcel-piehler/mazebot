@@ -1,13 +1,62 @@
 body {
-  background: #181820;
-  display: flex;
   margin: 0;
   padding: 0;
-  max-height: 100vh;
+  background: #181820;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #a0a0a8;
+  font-family: 'Roboto', sans-serif;
+}
+
+button, input {
+  font-family: inherit;
+  color: inherit;
+  background: #101018;
+  border: 1px solid #a0a0a8;
+  padding: .25em;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 #maze-canvas {
-  max-height: 100vmin;
-  max-width: 100vmin;
-  border: 5px solid #faa;
+  border: 10px solid #101018;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.maze-wrapper {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.maze-container {
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.control-container {
+  flex-grow: 0;
+}
+
+.generator-settings {
+  border: 1px solid #a0a0a8;
+  box-sizing: border-box
+}
+
+.generator-settings input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+}
+
+.generator-settings button {
+  width: 100%;
 }

@@ -9,6 +9,9 @@ module.exports = {
     cols = size;
     rows = size;
 
+    let startingPosition;
+    let endingPosition;
+
     let stack = [];
 
     while (true) {
@@ -17,7 +20,21 @@ module.exports = {
       if( neighbours.length < 1 ) {
         if( stack.length < 1 ) {
           stack = [];
-          currentPosition.x = currentPosition.y = -1;
+
+          while(!startingPosition) {
+            rndPos = { x:rnd.next(size), y:rnd.next(size) };
+            if (map[rndPos.x][rndPos.y] == ' ') startingPosition = rndPos;
+          }
+
+          while(!endingPosition) {
+            rndPos = { x:rnd.next(size), y:rnd.next(size) };
+            if (map[rndPos.x][rndPos.y] == ' ') endingPosition = rndPos;
+          }
+
+          map[startingPosition.x][startingPosition.y] = 'A';
+          map[endingPosition.x][endingPosition.y] = 'B';
+          
+          console.log(map);
           return map;
         }
         currentPosition = stack.pop();

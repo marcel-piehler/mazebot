@@ -11,11 +11,13 @@ function getJson(url, callback) {
   xhr.send('');
 }
 
-function loadMaze(seed) {
-  if (seed == undefined) seed = '';
-  else seed = 'seed=' + seed + '&';
+var seed = 1;
+let seedString = '';
 
-  getJson('http://localhost:3000/api/random?' + seed + 'minSize=199&maxSize=199', function(res) { 
+function loadMaze() {
+  if (seed != undefined) seedString = 'seed=' + seed++ + '&';
+
+  getJson('http://localhost:3000/api/random?' + seedString/* + 'minSize=199&maxSize=199'*/, function(res) { 
     console.log(res);
     drawMaze(res.map);
   });
@@ -24,7 +26,9 @@ function loadMaze(seed) {
 var canvas = document.getElementById('maze-canvas');
 var ctx = ctx = canvas.getContext("2d");
 
-function drawMaze(map, scale = 10) {
+function drawMaze(map, scale) {
+  if(scale == undefined) scale = 10;
+
   rows = map.length;
   cols = map[0].length;
 
@@ -47,6 +51,14 @@ function drawMaze(map, scale = 10) {
           ctx.fillStyle = '#181820';
           ctx.fillRect (i * scale, j * scale, scale, scale);
           break;
+        case 'A':
+          ctx.fillStyle = '#AFA';
+          ctx.fillRect (i * scale, j * scale, scale, scale);
+          break;
+        case 'B':
+          ctx.fillStyle = '#FAA';
+          ctx.fillRect (i * scale, j * scale, scale, scale);
+          break;
         default:
           break;
       }
@@ -55,3 +67,9 @@ function drawMaze(map, scale = 10) {
 }
 
 loadMaze();
+
+window.onresize = resizeCanvas;
+
+function resizeCanvas() {
+  canvas.style.height = canvas.style.width;
+}
