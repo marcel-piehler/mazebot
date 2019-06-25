@@ -37,9 +37,9 @@ router.get('/random', (req, res) => {
     size = randomSize;
   }
 
-  let map = maze.generate(size);
+  let mazeObj = maze.generate(size);
 
-  res.json({ success: 'true', map: map });
+  res.json({ success: 'true', map: mazeObj.map, startingPosition: mazeObj.startingPosition, endingPosition: mazeObj.endingPosition, seed: seed });
 });
 
 module.exports = router;

@@ -1,3 +1,5 @@
+// credits to https://rosettacode.org/wiki/Maze_solving#JavaScript for the basic idea
+
 module.exports = {
   set rnd(_rnd) {
     rnd = _rnd;
@@ -13,38 +15,39 @@ module.exports = {
     let endingPosition;
 
     let stack = [];
+    let path = [];
 
     while (true) {
-      var neighbours = getNeighbours(currentPosition.x, currentPosition.y, 'X');
+      let neighbours = getNeighbours(currentPosition.x, currentPosition.y, 'X');
       let l;
       if( neighbours.length < 1 ) {
         if( stack.length < 1 ) {
           stack = [];
 
-          while(!startingPosition) {
-            rndPos = { x:rnd.next(size), y:rnd.next(size) };
-            if (map[rndPos.x][rndPos.y] == ' ') startingPosition = rndPos;
-          }
+          let rndStart = path[rnd.next(path.length)];
+          let rndEnd = path[rnd.next(path.length)];
 
-          while(!endingPosition) {
-            rndPos = { x:rnd.next(size), y:rnd.next(size) };
-            if (map[rndPos.x][rndPos.y] == ' ') endingPosition = rndPos;
+          while (rndStart.x == rndEnd.x || rndStart.y == rndEnd.y) {
+            rndStart = path[rnd.next(path.length)];
+            rndEnd = path[rnd.next(path.length)];
           }
-
+          
+          startingPosition = rndStart;
+          endingPosition = rndEnd;
+          
           map[startingPosition.x][startingPosition.y] = 'A';
           map[endingPosition.x][endingPosition.y] = 'B';
-          
-          console.log(map);
-          return map;
+
+          return { map, startingPosition, endingPosition };
         }
         currentPosition = stack.pop();
       } else {
-        // var i = 2 * Math.floor( Math.random() * ( neighbours.length / 2 ) );
-        // var i = 2 * Math.floor( rnd.next() * ( neighbours.length / 2 ) );
         var i = 2 * rnd.next(0, neighbours.length / 2);
-        l = neighbours[i]; 
+        l = neighbours[i];
+        path.push(l);
         map[l.x][l.y] = ' ';
-        l = neighbours[i + 1]; 
+        l = neighbours[i + 1];
+        path.push(l);
         map[l.x][l.y] = ' ';
         currentPosition = l
         stack.push(currentPosition)
